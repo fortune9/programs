@@ -1,0 +1,107 @@
+#!/bin/bash
+# global variables
+instId=`ec2-meta instance-id | cut -f 2 -d ':'`
+ip=`inst_ip $instId text | cut -f 1`
+dest='zzhang@zymoresearch.com'
+#echo $instId, $ip, $dest
+
+function usage ()
+{
+	echo "
+	Usage: $0 [-a -l <num> -h <num> ] </dev/xvda> [</dev/xvdb> ...]
+
+	The program checks the size of the given devices and send email to
+	zzhang@zymoresearch.com when certain criteria are met.
+
+	The options '-l' and '-h' gives a usage percentage range for a
+	device, say -l 20 and -h 80, then if the observed usage for the
+	device is not in the range, a email will be sent for alerting. The
+	default value for -l and -h is 0 and 100.
+
+	The option -a is a switch option, when specified, an email is sent
+	only when all the devices exceed the specified range. In default,
+	an exceeding in any device will trigger an email.
+	"
+	exit 1;
+}
+
+function send_mail ()
+{
+	msg="
+	device  used  avail  Use%  mounted
+	$useInfo
+	"
+
+	echo -e $msg | mail -s "[$instId] Disk usage alarm" \
+		-S replyto="ec2-user@$ip" $dest
+}
+
+if [[ $# -lt 1 ]]; then
+	usage;
+fi
+
+while getopts ':l:h:a' opt;
+do
+	case $opt in
+		l)
+			low=$OPTARG;
+			;;
+		h)
+			high=$OPTARG;
+			;;
+		a)
+			all=y;
+			;;
+		\?)
+			echo Unknown option -$OPTARG;
+			;;
+		:)
+			echo An argument is needed for -$OPTARG
+			;;
+	esac
+done
+shift $((OPTIND - 1));
+
+if [[ -z $low ]]; then
+	low=0;
+fi
+
+if [[ -z $high ]]; then
+	high=100;
+fi
+
+if [[ $# -lt 1 ]]; then
+	echo At least a device name is needed
+	usage
+fi
+
+# get the device information
+numDev=$#;
+numFail=0;
+useInfo='';
+for dev in "$@"
+do
+	devInfo=$( df -hl --output=source,used,avail,pcent,target | gawk \
+	-v dev=$dev '$1==dev');
+	perc=$( echo $devInfo | tr -s ' ' '\t' | cut -f 4);
+	perc=${perc%\%}
+	if [[ $perc -lt $low || $perc -gt $high ]]; then
+		useInfo="$useInfo\n$devInfo";
+		numFail=$(( numFail + 1 ));
+	fi
+done
+
+if [[ $all == y && $numFail -eq $numDev ]]; then
+	send_mail;
+	exit 0;
+fi
+
+if [[ $all != y && $numFail -gt 0 ]]; then
+	send_mail;
+	exit 0
+fi
+
+echo `date`": Everything is OK. No mail sent."
+
+exit 0;
+

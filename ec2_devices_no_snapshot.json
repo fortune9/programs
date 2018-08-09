@@ -1,0 +1,21 @@
+[
+	{
+		"DeviceName": "/dev/sdj",
+		"Ebs":
+		{
+			"SnapshotId": "snap-0230bedfc528b731b",
+			"DeleteOnTermination": true,
+			"VolumeSize": 5,
+			"VolumeType": "gp2"
+		}
+	}
+	{
+		"DeviceName": "/dev/sdk",
+		"Ebs":
+		{
+			"DeleteOnTermination": false,
+			"VolumeSize": 20,
+			"VolumeType": "gp2"
+		}
+	}
+]

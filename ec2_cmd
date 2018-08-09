@@ -1,0 +1,25 @@
+#!/bin/sh
+
+set -e
+
+if [[ $# -lt 2 ]]; then
+	echo "
+	Usage: $0 <instance-id> <command> [<private-key-file> <user-name>]
+	
+	This program runs a specified command on an instance remotely.
+	";
+	exit 1;
+fi
+
+instId=$1
+cmd=$2
+pem=${3:-$HOME/.aws/zzhang.pem}
+user=${4:-ec2-user}
+
+# Verify RSA key fingerprint
+#aws ec2 get-console-output --instance-id $instId 2>/dev/null
+
+dns=`inst_ip $instId text | cut -f 2`
+# connect to the instance
+ssh -i $pem $user@$dns "bash -l -c '$cmd'"
+

@@ -1,0 +1,173 @@
+#!/bin/env perl
+
+use strict;
+use Getopt::Long;
+
+my $WI = '[INFO]';
+my $WE = '[ERROR]';
+my $defaultBuild = 'hg19';
+
+####### Data variables ##########
+# Edit these variables when adding/updating genomes
+my $ucscFolder = $ENV{"HOME"}.'/work/data/genomes/ucsc';
+my $ncbiFolder = $ENV{"HOME"}.'/work/data/genomes/ncbi';
+my $ensemblFolder = $ENV{"HOME"}.'/work/data/genomes/ensembl';
+
+my %genomes = (
+	'hg19'	=> $ucscFolder."/hg19.2bit",
+	'hg18'	=> $ucscFolder."/hg18.2bit",
+	'mm10'	=> $ucscFolder."/mm10.2bit"
+);
+##################################
+
+my $build;
+my $organism;
+my $begin;
+my $end;
+my $seqName;
+my $len;
+my $twoBitFile;
+my $newName;
+
+GetOptions(
+	"build:s" => \$build,
+	"organism|o:s" => \$organism,
+	"seq-name|s=s"  => \$seqName,
+	"begin|b=i"     => \$begin,
+	"end|e:i"       => \$end,
+	"len|l:i"       => \$len,
+	"2bit|2:s"        => \$twoBitFile,
+	"new-name|n:s"  => \$newName
+);
+
+&usage() unless($seqName and defined($begin) and (defined($end) or defined($len)));
+
+unless(defined $end)
+{
+	$end = $begin + $len -1 ;
+}
+
+unless(defined($build) or defined($twoBitFile))
+{
+	warn "$WI Build '$defaultBuild' is used as none is specified\n";
+	$build = $defaultBuild;
+}
+
+# convert to lowercase
+$build=lc($build);
+$seqName=lc($seqName);
+
+my $genome;
+
+if($twoBitFile)
+{
+	$genome = $twoBitFile;
+}elsif(-f $build)
+{
+	$genome = $build;
+}else
+{
+	unless(exists($genomes{$build}))
+	{
+		die "Build '$build' is not supported. $!"
+	}
+	
+	$genome = $genomes{$build};
+}
+
+my $seq = _extract_seq();
+unless($seq)
+{
+	warn "$WE Extract $seqName:$begin-$end in $build failed\n";
+	exit 1;
+}
+
+_output_seq($seq);
+
+exit 0;
+
+sub _extract_seq
+{
+	my $start = $begin - 1; # make it 0-based
+	my $result = 
+	`twoBitToFa $genome stdout -seq=$seqName -start=$start -end=$end`;
+	return undef unless($result);
+	my ($header, $seq) = split("\n", $result, 2);
+	$seq = uc($seq);
+	$seq =~ s/[^ATGCNU]+//g;
+	my $name = "$seqName:$begin-$end";
+	if(defined $newName) { $name = "$newName $name"; }
+	return {'name' => $name,
+	        'seq'  => $seq
+			};
+}
+
+sub _output_seq
+{
+	my $seq = shift;
+	print ">".$seq->{'name'}."\n";
+	print _format_seq($seq->{'seq'})
+}
+
+sub _format_seq
+{
+	my $str = shift;
+	my $wid = 60;
+
+	my $start = 0;
+	my $end;
+	my $seqLen = length($str);
+	my $formatted = '';
+	while($start < $seqLen)
+	{
+		$end = $start + $wid > $seqLen? $seqLen : $start + $wid;
+		$formatted .= substr($str, $start, $end-$start)."\n";
+		$start = $end;
+	}
+
+	return($formatted);
+}
+
+sub usage
+{
+	print <<USAGE;
+Usage: $0 [options]
+
+This program outputs a sequence of a specified region. The following
+options are accepted.
+
+Mandatory options:
+
+--seq-name: the name of the sequence where the specified region is
+located, such as 'chr1'.
+
+--begin: the start of the region in 1-based coordinate.
+
+--end:   the end of the region in 1-based coordinate.
+
+--len:   the length of the region. This option is required when '--end'
+         is missing.
+
+Auxilary options:
+
+--build: which build is the sequence from. Since one organism such as
+human may have multiple genome builds, an exact build is needed to get
+accurate sequence. For example, 'hg19' or 'mm10'. Default is hg19. 
+Alternatively, a .2bit file can also be fed here.
+
+--2bit: instead of providing a build name, provide a .2bit file directly.
+
+--new-name: a string used as the name for output sequence, default is
+\$seq-name:\$begin-\$end
+
+An example:
+	$0 --build=hg19 -s chr1 -b 100 -e 200
+
+Author: Zhenguo Zhang
+Created: Thu May 11 16:49:30 EDT 2017
+
+USAGE
+
+	exit 1;
+}
+

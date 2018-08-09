@@ -1,0 +1,526 @@
+in471_1
+12 weeks Male 01
+mini PE 4
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+45,647,138 read pairs
+from 2 files
+	
+57%
+	
+4,688,235
+	
+18X
+	
+99%
+in471_2
+12 weeks Male 02
+mini PE 5
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+46,406,876 read pairs
+from 2 files
+	
+55%
+	
+4,645,497
+	
+18X
+	
+99%
+in471_3
+24 weeks Male 01
+mini PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+42,376,947 read pairs
+from 2 files
+	
+54%
+	
+4,571,027
+	
+17X
+	
+99%
+in471_4
+24 weeks Male 02
+mini PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+67,513,699 read pairs
+from 3 files
+	
+53%
+	
+4,869,074
+	
+25X
+	
+99%
+in471_5
+64 weeks Male 01
+mini PE 6
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+34,169,083 read pairs
+from 2 files
+	
+58%
+	
+4,507,501
+	
+14X
+	
+99%
+in471_6
+64 weeks Male 02
+mini PE 12
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+30,967,118 read pairs
+from 1 files
+	
+55%
+	
+4,404,126
+	
+13X
+	
+99%
+in471_7
+12 weeks Female 01
+mini PE 5
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+47,045,994 read pairs
+from 2 files
+	
+59%
+	
+4,751,554
+	
+20X
+	
+99%
+in471_8
+12 weeks Female 02
+mini PE 6
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+41,389,479 read pairs
+from 2 files
+	
+59%
+	
+4,706,396
+	
+17X
+	
+99%
+in471_9
+24 weeks Female 01
+mini PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+54,057,053 read pairs
+from 2 files
+	
+56%
+	
+4,642,489
+	
+22X
+	
+99%
+in471_10
+24 weeks Female 02
+mini PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+38,414,921 read pairs
+from 2 files
+	
+56%
+	
+4,516,952
+	
+15X
+	
+99%
+in471_11
+64 weeks Female 01
+mini
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+	
+0 reads
+from 0 files
+	
+	
+	
+	
+in471_12
+64 weeks Female 02
+mini
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+	
+0 reads
+from 0 files
+	
+	
+	
+	
+in471_13
+12 weeks Male 01
+RNA SE 2
+	
+QC 	Total Read Number 	Mapping Efficiency 	
+Pass
+	
+39,967,580 reads
+from 1 files
+	
+84%
+in471_14
+12 weeks Male 02
+RNA SE 4
+	
+QC 	Total Read Number 	Mapping Efficiency 	
+Pass
+	
+53,329,633 reads
+from 1 files
+	
+83%
+in471_15
+24 weeks Male 01
+RNA SE
+	
+QC 	Total Read Number 	Mapping Efficiency 	
+Pass
+	
+39,987,758 reads
+from 1 files
+	
+88%
+in471_16
+24 weeks Male 02
+RNA SE
+	
+QC 	Total Read Number 	Mapping Efficiency 	
+Pass
+	
+29,679,972 reads
+from 1 files
+	
+87%
+in471_17
+64 weeks Male 01
+RNA SE 5
+	
+QC 	Total Read Number 	Mapping Efficiency 	
+Pass
+	
+42,174,637 reads
+from 1 files
+	
+83%
+in471_18
+64 weeks Male 02
+RNA SE 6
+	
+QC 	Total Read Number 	Mapping Efficiency 	
+Pass
+	
+41,281,424 reads
+from 1 files
+	
+85%
+in471_19
+12 weeks Female 01
+RNA SE 7
+	
+QC 	Total Read Number 	Mapping Efficiency 	
+Pass
+	
+40,022,047 reads
+from 1 files
+	
+86%
+in471_20
+12 weeks Female 02
+RNA SE 12
+	
+QC 	Total Read Number 	Mapping Efficiency 	
+Pass
+	
+38,020,084 reads
+from 1 files
+	
+88%
+in471_21
+24 weeks Female 01
+RNA SE
+	
+QC 	Total Read Number 	Mapping Efficiency 	
+Pass
+	
+40,570,431 reads
+from 1 files
+	
+85%
+in471_22
+24 weeks Female 02
+RNA SE
+	
+QC 	Total Read Number 	Mapping Efficiency 	
+Pass
+	
+53,942,881 reads
+from 1 files
+	
+85%
+in471_23
+64 weeks Female 01
+RNA
+	
+QC 	Total Read Number 	Mapping Efficiency 	
+	
+0 reads
+from 0 files
+	
+in471_24
+64 weeks Female 02
+RNA
+	
+QC 	Total Read Number 	Mapping Efficiency 	
+	
+0 reads
+from 0 files
+	
+in471_25
+12 weeks Male 03
+Midi PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+248,302,271 read pairs
+from 8 files
+	
+48%
+	
+14,783,343
+	
+6X
+	
+99%
+in471_26
+12 weeks Male 04
+Midi PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+257,688,541 read pairs
+from 9 files
+	
+37%
+	
+10,346,070
+	
+8X
+	
+98%
+in471_27
+24 week Male 03
+Midi PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+282,612,839 read pairs
+from 9 files
+	
+43%
+	
+14,106,299
+	
+6X
+	
+99%
+in471_28
+24 weeks Male 04
+Midi PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+262,162,790 read pairs
+from 9 files
+	
+46%
+	
+14,346,489
+	
+6X
+	
+99%
+in471_29
+57 weeks Male 01
+Midi PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+273,697,854 read pairs
+from 9 files
+	
+49%
+	
+15,231,935
+	
+6X
+	
+99%
+in471_30
+57 weeks Male 02
+Midi PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+258,896,703 read pairs
+from 9 files
+	
+48%
+	
+14,735,325
+	
+6X
+	
+99%
+in471_31
+in471_26 trimmed
+Midi PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+257,688,541 read pairs
+from 9 files
+	
+60%
+	
+11,935,713
+	
+10X
+	
+98%
+in471_32
+in471_25_trimmed
+Midi PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+248,302,271 read pairs
+from 8 files
+	
+61%
+	
+16,072,120
+	
+6X
+	
+99%
+in471_33
+in471_27_trimmed
+Midi PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+282,612,839 read pairs
+from 9 files
+	
+56%
+	
+15,442,079
+	
+7X
+	
+99%
+in471_34
+in471_28_trimmed
+Midi PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+262,162,790 read pairs
+from 9 files
+	
+60%
+	
+15,676,943
+	
+7X
+	
+99%
+in471_35
+in471_29_trimmed
+Midi PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+273,697,854 read pairs
+from 9 files
+	
+61%
+	
+16,485,733
+	
+7X
+	
+99%
+in471_36
+in471_30_trimmed
+Midi PE
+	
+QC 	Total Read Number 	Mapping Efficiency 	Unique CpGs 	Avg. CpG Coverage 	Bisulfite Conversion Rate 	
+Pass
+	
+258,896,703 read pairs
+from 9 files
+	
+63%
+	
+16,046,993
+	
+7X
+	
+99% 

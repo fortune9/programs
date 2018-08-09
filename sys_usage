@@ -1,0 +1,107 @@
+#!/bin/env perl
+
+# This program outputs the usage of CPU and memory
+
+use strict;
+use warnings;
+use Getopt::Long;
+
+my $times=1;
+my $n = 5;
+my $numLines = 7 + $n;
+
+my $infoCpu = `top -b n $times -o "%CPU" | head -$numLines`;
+my $infoMem = `top -b n $times -o "%MEM" | head -$numLines`;
+
+&cpu();
+&mem();
+&sys_load();
+&top_cpu($n);
+&top_mem($n);
+
+exit 0;
+
+sub cpu
+{
+	my ($line) = $infoCpu =~ /^(\%Cpu.*)$/mi;
+	#print $line,"\n";
+	print "#CPU usage summary\n";
+	my @data;
+	push @data, $line =~ /([0-9.-]+)\s*us/i;
+	push @data, $line =~ /([0-9.-]+)\s*sy/i;
+	push @data, $line =~ /([0-9.-]+)\s*ni/i;
+	push @data, $line =~ /([0-9.-]+)\s*id/i;
+	push @data, $line =~ /([0-9.-]+)\s*wa/i;
+	push @data, $line =~ /([0-9.-]+)\s*hi/i;
+	push @data, $line =~ /([0-9.-]+)\s*si/i;
+	push @data, $line =~ /([0-9.-]+)\s*st/i;
+	my @fields = qw/user sys user(n) idle IOwait hw-i sw-i stolen/;
+	my $fmt = '%8s' x ($#fields + 1);
+	printf($fmt."\n", @fields);
+	printf($fmt."\n", @data);
+}
+
+sub mem
+{
+	my ($line) = $infoCpu =~ /^.*?mem(.*)$/mi;
+	my @data;
+	push @data, $line =~ /([0-9.-]+)\s*total/i;
+	push @data, $line =~ /([0-9.-]+)\s*free/i;
+	push @data, $line =~ /([0-9.-]+)\s*used/i;
+	push @data, sprintf("%.3f",$data[2]/$data[0]);
+	push @data, $line =~ /([0-9.-]+)\s*(?:buff|cache)/i;
+	my @fields = qw/type total free used use% cached/;
+	my $fmt = ('%12s' x 6)."\n";
+	print "#Memory usage summary.\n";
+	printf($fmt, @fields);
+	printf($fmt, 'Physical', @data);
+	($line) = $infoCpu =~ /^.*?Swap(.*)$/mi;
+	@data = ();
+	push @data, $line =~ /([0-9.-]+)\s*total/i;
+	push @data, $line =~ /([0-9.-]+)\s*free/i;
+	push @data, $line =~ /([0-9.-]+)\s*used/i;
+	push @data, sprintf("%.3f",$data[5]? $data[7]/$data[5] : 0);
+	push @data, $line =~ /([0-9.-]+)\s*avail/i;
+	#printf($fmt, @fields);
+	printf($fmt, 'Swap', @data);
+}
+
+sub sys_load
+{
+	my @data = $infoCpu =~ /load average:\s*([0-9.]+),\s*([0-9.]+),\s*([0-9.]+)/i;
+	my $fmt = ('%7s' x 3)."\n";
+	print "#system load: 1, 5, and 15 min\n";
+	printf($fmt, @data);
+}
+
+sub top_proc
+{
+	my $max = shift;
+	my $info = shift;
+	my $type = shift;
+	my @lines = split "\n", $info;
+	my $cnt = 0;
+	my @top;
+	my $header;
+	for(my $i = 0; $i <= $#lines; $i++)
+	{
+		next unless $lines[$i] =~ /^\s*PID/;
+		push @top, $lines[$i];
+		my $l = $i+1;
+		my $h = $i + $max > $#lines? $#lines : $i + $max;
+		push @top, @lines[$l..$h];
+		last;
+	}
+	printf "# Top %d %s-costive porcesses\n", $#top + 1, $type;
+	print join("\n", @top), "\n";
+}
+
+sub top_cpu
+{
+	top_proc(@_, $infoCpu, 'CPU');
+}
+
+sub top_mem
+{
+	top_proc(@_, $infoMem, 'MEM');
+}

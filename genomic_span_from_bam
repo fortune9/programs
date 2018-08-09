@@ -1,0 +1,49 @@
+#!/usr/bin/env perl
+use strict;
+
+my $file = shift or &usage();
+
+open(S, "< $file") or die "can't open $file:$!";
+print  join("\t", qw/read_id chr start span/), "\n";
+while(<S>)
+{
+	next if /^@/ or /^\s*$/;
+	my @fields = split "\t";
+	my $span = _parse_span_from_cigar($fields[5]);
+	print join("\t", @fields[0,2,3], $span), "\n";
+}
+close S;
+
+exit 0;
+
+sub _parse_span_from_cigar
+{
+	my $cigar = shift;
+	return 'NA' if $cigar eq '*';
+	my $span = 0;
+
+	while($cigar =~ /(\d+)[MDN=X]/gc)
+	{
+		$span += $1;
+	}
+
+	return $span? $span : 'NA';
+}
+
+sub usage
+{
+	print <<USAGE;
+Usage: $0 [options] <sam-file>
+
+This program reads a sam file and outputs the genomic span
+for each aligned read, i.e., the left-most and right-most 
+chromosomal positions. For reading from standard input, '-'
+can be given.
+
+Created:
+Fri Sep  1 18:40:44 EDT 2017
+
+USAGE
+
+	exit 1;
+}

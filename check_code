@@ -1,0 +1,35 @@
+#!/bin/bash
+
+function is_binary()
+{
+	type=`file -b --mime-type $1 | sed 's|/.*||'`
+	if [[ $type == "text" ]]; then
+		echo 0;
+	else
+		echo 1;
+	fi
+}
+
+scpt=$1;
+
+if [[ -z $scpt ]]; then
+	echo "
+	Usage: $0 <script-name>
+	"
+	exit 1;
+fi
+
+scpt=`which $scpt 2>/dev/null`;
+
+if [[ ! -e $scpt ]]; then
+	echo "'$1' does not exist"
+	exit 1;
+fi
+
+if [[ $(is_binary $scpt) -ne 0 ]]; then
+	echo "'$scpt' is not a text/ascii file"
+	exit 2;
+fi
+
+strings $scpt | less;
+

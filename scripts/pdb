@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [[ $# -lt 1 ]]; then
+	echo "
+	Usage: $0 <script-file> [<other-args>]
+	
+	*** Python Debugger ***
+
+	This is a simply a wrapper of loading python module 'pdb.py', so
+	any arguments valid to the module can be provided here.
+
+	Example: $0 myscript.py
+	"
+
+	exit 1;
+fi
+
+python -m pdb "$@"
+

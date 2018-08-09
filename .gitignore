@@ -33,3 +33,8 @@ inc/
 /MANIFEST.bak
 /pm_to_blib
 /*.zip
+
+# private ones
+launch_ec2.*
+connect_to_ec2_inst*
+
