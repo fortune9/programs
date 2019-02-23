@@ -178,6 +178,9 @@ This program is to pair the sequence reads from the two input files,
 and output three files: <out>_1.fastq.gz <out>_2.fastq.gz
 <out>_up.fastq.gz
 
+Currently, it relies on the read name (the leading non-blank character string
+at the \@ line of fastq record) to match a pair of reads.
+
 Options:
 
 --suffix: a switch option, if provided, suffix /1 and /2 will be added to
