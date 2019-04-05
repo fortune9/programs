@@ -1,0 +1,93 @@
+#!/bin/bash
+
+set -e
+
+function usage
+{
+	cat <<EOF
+Usage: $0 [options] [ -- <other paramters to sort>]
+
+This program is a wrapper of Linux's sort program. It does the
+following things:
+
+1. can skip first lines in sorting and combine the skipped and sorted
+lines in output.
+
+Here <other paramters to sort> hold all options and inputs which are
+directly transfered to Linux's sort directly. The options digested by
+this program are:
+
+-h/--help: show this help message.
+--skip-first: accept a number N to specifty how many first lines are
+skipped in sorting
+-i/--in-file: input filename. If reading from standard input, skip
+this option.
+
+E.g.: $0 --skip-first 10 -- -n test.txt
+
+EOF
+
+}
+
+tmpFiles=();
+
+skipFirst=0;
+inFile="";
+
+while [[ $# -gt 0 ]];
+do
+	k=$1;
+	case $k in
+		--)
+			shift;
+			break;
+			;;
+		-h|--help)
+			usage;
+			exit 1;
+			;;
+		--skip-first)
+			skipFirst="$2";
+			shift 2;
+			;;
+		-i|--in-file)
+			inFile="$2";
+			shift 2;
+			;;
+	esac
+done
+
+if [[ (! $inFile) && (! -p /dev/stdin) ]]; then
+	echo "No input for processing" >&2
+	exit 3;
+fi
+
+if [[ -p /dev/stdin ]]; then
+	inFile="tmp.smsort.$$.in"
+	cat >$inFile; # save pipe file to a normal file first
+	tmpFiles+=($inFile);
+fi
+
+#echo "options to sort: $@"
+
+if [[ $skipFirst -gt 0 ]]; then
+	echo "First $skipFirst lines are skipped in sort" >&2
+	#headFile="tmp.$$.head"
+	#cat $inFile | head -$skipFirst >$headFile
+fi
+
+#cmd="cat $inFile | sort $@ "
+#echo "running $cmd"
+
+cat <( head -$skipFirst $inFile ) \
+	<(gawk -v n=$skipFirst 'NR>n' $inFile | sort $@ )
+
+for f in ${tmpFiles[@]}
+do
+	if [[ -f $f ]]; then
+		rm $f
+	fi
+done
+
+exit 0;
+
