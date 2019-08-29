@@ -2,19 +2,23 @@
 # other bash files.
 
 # IO
+
+pg=`basename $0`;
+program=$pg;
+
 function msg()
 {
-	echo -e "$*" >&2
+	echo -e "[$pg] $*" >&2
 }
 
 function error()
 {
-	msg "[ERROR] $*"
+	msg "[ERROR:$pg] $*"
 }
 
 function warn()
 {
-	msg "[WARN] $*"
+	msg "[WARN:$pg] $*"
 }
 
 ## get the number of fields in a file
