@@ -13,12 +13,12 @@ function msg()
 
 function error()
 {
-	msg "[ERROR:$pg] $*"
+	msg "[ERROR] $*"
 }
 
 function warn()
 {
-	msg "[WARN:$pg] $*"
+	msg "[WARN] $*"
 }
 
 ## get the number of fields in a file
