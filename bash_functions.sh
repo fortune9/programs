@@ -53,6 +53,17 @@ function str_split
 	echo "$st" | sed -e "s/$sp/\n/g"
 }
 
+## case conversion
+function to_upper
+{
+	echo "$*" | tr '[:lower:]' '[:upper:]'
+}
+
+function to_lower
+{
+	echo "$*" | tr '[:upper:]' '[:lower:]'
+}
+
 ## generate random alphabet string
 function rand_str
 {
