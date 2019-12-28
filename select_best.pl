@@ -214,6 +214,10 @@ format like -s or -n for the option --types (see below).
 
 To read from standard input, give '-' as <infile>.
 
+#****** Note ******#
+records with the same id should be at adjcent lines in input
+#******************#
+
 Options (default values are in []):
 
 --sep: <char> the field separator for both input and output files.
