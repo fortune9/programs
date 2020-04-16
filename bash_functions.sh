@@ -50,7 +50,14 @@ function str_split
 {
 	sp=$1;
 	st=$2;
-	echo "$st" | sed -e "s/$sp/\n/g"
+	# updated into a loop to change empty string to ''
+	while IFS= read i
+	do
+		if [[ $i == "" ]]; then
+			i="''";
+		fi
+		echo $i
+	done < <(echo "$st" | sed -e "s/$sp/\n/g")
 }
 
 ## case conversion
