@@ -85,7 +85,7 @@ elif [[ $dif -eq -1 ]]; then
     # first row has 1 fewer field, so will treat as header
     numField=$second
     # prepend an empty field
-    tped=$(echo "$firstLine" | transpose_row)
+    tped=$(echo "$sep$firstLine" | transpose_row)
 else
     echo "Unknown format for the input data"
     exit 2;
