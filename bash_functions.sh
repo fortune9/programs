@@ -21,6 +21,18 @@ function warn()
 	msg "[WARN] $*"
 }
 
+## 'cd' command for path with '\' as separator
+function wcd() {
+	if [[ ! "$1" =~ [\\] ]]; then
+		cd "$1"
+	else
+		path=${1//\\/\/}
+		path=$( echo $path | sed -e 's!^\(\w\+\):!/mnt/\l\1!' )
+		cd "$path"
+	fi
+}
+
+
 ## get the number of fields in a file
 function file_nf
 {
